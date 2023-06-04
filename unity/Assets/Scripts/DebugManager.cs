@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
-using Firebase.Crashlytics;
+//using Firebase.Crashlytics;
 
 public class DebugManager : MonoBehaviour
 {
     static public void Enable()
     {
-        Firebase.FirebaseApp app = Firebase.FirebaseApp.Create();
+        /*Firebase.FirebaseApp app = Firebase.FirebaseApp.Create();
 
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
             var dependencyStatus = task.Result;
@@ -26,7 +26,7 @@ public class DebugManager : MonoBehaviour
             }
         });
 
-        Application.logMessageReceivedThreaded += HandleLog;
+        Application.logMessageReceivedThreaded += HandleLog;*/
     }
 
     static public void Disable()
@@ -38,16 +38,16 @@ public class DebugManager : MonoBehaviour
     {
 
         // only capture log from main thread, otherwise crashes
-        if (Application.platform == RuntimePlatform.Android && Game.Get().mainThread.Equals(System.Threading.Thread.CurrentThread))
+        /*if (Application.platform == RuntimePlatform.Android && Game.Get().mainThread.Equals(System.Threading.Thread.CurrentThread))
         {
           Crashlytics.Log(logString);
-        }
+        }*/
     }
 
     static public void Crash()
     {
        GameObject go_dbg = new GameObject("DebugManager");
-       go_dbg.AddComponent<CrashlyticsTester>();
+       //go_dbg.AddComponent<CrashlyticsTester>();
     }
 }
 
