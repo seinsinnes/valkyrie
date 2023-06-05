@@ -207,10 +207,16 @@ public class StatsManager
         formFields.AddField("entry.1047979960", gameStats.events_list);
         formFields.AddField("entry.571357850",  gameStats.vars_list);
 
+        //personal data store submit
+        HTTPManager.Upload("https://docs.google.com/forms/u/1/d/e/1FAIpQLSfc-nZkWGoCDvD7QVUjq9MiaVUtLuefyTXWBpGsNY4Q6bEzSQ/formResponse?hl=en",
+                           formFields,
+                           StatsUpload_callback);
+
         // submit async
         HTTPManager.Upload("https://docs.google.com/forms/u/1/d/e/1FAIpQLSfiFPuQOTXJI54LI-WNvn1K6qCkM5xErxJdUUJRhCZthaIqcA/formResponse?hl=en",
                            formFields,
                            StatsUpload_callback);
+        
     }
 
     private void StatsUpload_callback(string data, bool error)
