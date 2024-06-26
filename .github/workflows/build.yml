@@ -7,6 +7,7 @@ jobs:
     steps:
     
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
       
       #Get the version for build and store in environment variable for later use.
       - name: Get version
