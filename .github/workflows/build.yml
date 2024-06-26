@@ -26,7 +26,7 @@ jobs:
       #but it doesn't seem to work so the action has to be repeated for
       #each module. 
       - name: Setup Unity and Linux Module
-        uses: kuler90/setup-unity@v1.1.0
+        uses: seinsinnes/setup-unity@v1.1.0
         with:
           unity-version: 2018.4.20f1
           unity-modules: "linux"
