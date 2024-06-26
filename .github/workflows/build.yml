@@ -20,6 +20,8 @@ jobs:
       
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
+
+      - uses: actions/setup-node@v4
       
       #Downloading and installing unity
       #It should be possible to install more than one module at a time
