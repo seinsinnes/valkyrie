@@ -35,7 +35,7 @@ exit /B 1
 )
 
 rem set unity editor location
-IF "%UNITY_EDITOR_HOME%"=="" SET UNITY_EDITOR_HOME=%ProgramFiles%\Unity\Editor
+IF "%UNITY_EDITOR_HOME%"=="" SET UNITY_EDITOR_HOME=%ProgramFiles%\Unity\Hub\Editor\6000.0.51f1\Editor
 IF NOT EXIST "%UNITY_EDITOR_HOME%" (
 echo [31m--- ERROR --- UNITY_EDITOR_HOME path not set : please set unity editor path in build.bat or create a similar environment variable[0m
 exit /B 1
@@ -97,13 +97,13 @@ SetVersion %~dp0
 del ".\unity\Assets\Plugins\UnityEngine.dll"
 
 rem build unity
-Unity -batchmode -quit -projectPath "%~dp0unity" -buildWindowsPlayer ..\build\win\valkyrie.exe
+Unity -batchmode -quit -projectPath "%~dp0unity" -buildWindows64Player ..\build\win\valkyrie.exe
 copy %LOCALAPPDATA%\Unity\Editor\Editor.log .\build\Editor_valkyrie-windows.log
 
 Unity -batchmode -quit -projectPath "%~dp0unity" -buildTarget OSXUniversal -buildOSXUniversalPlayer ..\build\macos\Valkyrie.app
 copy %LOCALAPPDATA%\Unity\Editor\Editor.log .\build\Editor_valkyrie-macos.log
 
-Unity -batchmode -quit -projectPath "%~dp0unity" -buildLinuxUniversalPlayer ..\build\linux\valkyrie
+Unity -batchmode -quit -projectPath "%~dp0unity" -buildLinux64Player ..\build\linux\valkyrie
 copy %LOCALAPPDATA%\Unity\Editor\Editor.log .\build\Editor_valkyrie-linux.log
 
 Unity -batchmode -quit -projectPath "%~dp0unity" -executeMethod PerformBuild.CommandLineBuildAndroid +buildlocation "%~dp0build\android\Valkyrie-android.apk"

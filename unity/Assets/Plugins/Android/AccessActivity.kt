@@ -60,10 +60,10 @@ class AccessActivity : Activity(), FSAFActivityCallbacks {
     var tv: TextView? = null
 
     fun doPermissionRequestAndCopy() {
-        var docId = DOCID_ANDROID_DATA + getIntent().getExtras().getString("andriodDataDir")
+        var docId = DOCID_ANDROID_DATA + getIntent().getExtras()?.getString("andriodDataDir")
         if (DocumentVM.atLeastR()) {
             if (Build.VERSION.SDK_INT > 31) {
-                docId += "/" + getIntent().getExtras().getString("targetPackageName")
+                docId += "/" + getIntent().getExtras()?.getString("targetPackageName")
             }
             Log.e(TAG, " onSelected: $docId")
             Log.e(TAG, " askForPerm onSelected: $docId")
@@ -117,7 +117,7 @@ class AccessActivity : Activity(), FSAFActivityCallbacks {
     }
 
     private fun goAndroidData(path: String?) {
-        val uri = DocumentVM.getFolderUri(DOCID_ANDROID_DATA + getIntent().getExtras().getString("andriodDataDir"), true)
+        val uri = DocumentVM.getFolderUri(DOCID_ANDROID_DATA + getIntent().getExtras()?.getString("andriodDataDir"), true)
         goSAF(uri, path)
     }
 
@@ -127,7 +127,7 @@ class AccessActivity : Activity(), FSAFActivityCallbacks {
         val data = intent?.data
         if (requestCode == REQ_SAF_R_DATA) {
             if (act != null) {
-                if (!DocumentVM.checkFolderPermission(act,DOCID_ANDROID_DATA + getIntent().getExtras().getString("andriodDataDir"))) {
+                if (!DocumentVM.checkFolderPermission(act,DOCID_ANDROID_DATA + getIntent().getExtras()?.getString("andriodDataDir"))) {
                     if (resultCode == Activity.RESULT_OK) {
                         if (data != null) {
                             goSAF(data)
@@ -176,9 +176,9 @@ class AccessActivity : Activity(), FSAFActivityCallbacks {
             }
 
             val baseFileApiDir = fileManager.fromRawFile(
-                File(Environment.getExternalStorageDirectory().absolutePath + "/Valkyrie" , getIntent().getExtras().getString("targetPackageName"))
+                File(Environment.getExternalStorageDirectory().absolutePath + "/Valkyrie" , getIntent().getExtras()?.getString("targetPackageName"))
             )
-            val directory = File(Environment.getExternalStorageDirectory().absolutePath + "/Valkyrie" , getIntent().getExtras().getString("targetPackageName"))
+            val directory = File(Environment.getExternalStorageDirectory().absolutePath + "/Valkyrie" , getIntent().getExtras()?.getString("targetPackageName"))
 
             if (!directory.exists()) {
                 directory.mkdir()
@@ -189,7 +189,7 @@ class AccessActivity : Activity(), FSAFActivityCallbacks {
             }
             var packageDirFound = false
 
-            if (baseSAFDir.getFullPath().endsWith(getIntent().getExtras().getString("targetPackageName"))) {
+            if (baseSAFDir.getFullPath().endsWith(getIntent().getExtras()?.getString("targetPackageName").toString())) {
                 fileManager.copyDirectoryWithContent(baseSAFDir, baseFileApiDir, true)
                 packageDirFound = true
             }
@@ -198,7 +198,7 @@ class AccessActivity : Activity(), FSAFActivityCallbacks {
                 
             
                 innerFiles.forEach {
-                    if (it.getFullPath().endsWith(getIntent().getExtras().getString("targetPackageName"))) {
+                    if (it.getFullPath().endsWith(getIntent().getExtras()?.getString("targetPackageName").toString())) {
                         Log.i(TAG, " from: $it to: $baseFileApiDir")
 
                         fileManager.copyDirectoryWithContent(it, baseFileApiDir, true)
@@ -213,7 +213,7 @@ class AccessActivity : Activity(), FSAFActivityCallbacks {
             }
 
 
-	       val copyCompleteIndicationFile = File(Environment.getExternalStorageDirectory().absolutePath + "/Valkyrie/" + getIntent().getExtras().getString("targetPackageName") + "/done");
+	       val copyCompleteIndicationFile = File(Environment.getExternalStorageDirectory().absolutePath + "/Valkyrie/" + getIntent().getExtras()?.getString("targetPackageName") + "/done");
            if (!copyCompleteIndicationFile.exists()) {
                copyCompleteIndicationFile.createNewFile()
            }
@@ -223,7 +223,7 @@ class AccessActivity : Activity(), FSAFActivityCallbacks {
 	        Log.d(TAG, message)
         } catch (error: Throwable) {
 	        Log.d(TAG, Log.getStackTraceString(error))
-           val copyFailedIndicationFile = File(Environment.getExternalStorageDirectory().absolutePath + "/Valkyrie/" + getIntent().getExtras().getString("targetPackageName") + "/failed");
+           val copyFailedIndicationFile = File(Environment.getExternalStorageDirectory().absolutePath + "/Valkyrie/" + getIntent().getExtras()?.getString("targetPackageName") + "/failed");
            if (!copyFailedIndicationFile.exists()) {
                copyFailedIndicationFile.createNewFile()
            }
